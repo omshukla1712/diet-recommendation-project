@@ -9,12 +9,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       listDiv.innerHTML = "<p>No users found. Please add your details first.</p>";
       return;
     }
-
-    // Show the last added user (most recent one)
     const user = users[users.length - 1];
     const { name, age, height, weight, gender, goal } = user;
 
-    // Simple BMI-based logic for recommendations (you can improve later)
     const bmi = weight / Math.pow(height / 100, 2);
     let recommendation = "";
 

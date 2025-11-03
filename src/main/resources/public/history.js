@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   historyDiv.innerHTML = "<p>Loading user history...</p>";
 
   try {
-    // 👇 Updated line
     const response = await fetch("http://localhost:8080/users");
     const users = await response.json();
 

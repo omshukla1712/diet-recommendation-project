@@ -1,19 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("userForm"); // ✅ Correct ID
+  const form = document.getElementById("userForm");
 
   form.addEventListener("submit", async (event) => {
-    event.preventDefault(); // prevent page reload
-
-    // ✅ Create user object based on current HTML fields
-    const user = {
-      name: "Anonymous", // no 'name' field in HTML yet
-      age: parseInt(document.getElementById("age").value),
-      height: parseFloat(document.getElementById("height").value),
-      weight: parseFloat(document.getElementById("weight").value),
-      gender: document.getElementById("gender").value,
-      activityLevel: "Moderate", // placeholder since not in form
-      goal: document.getElementById("goal").value
-    };
+    event.preventDefault(); 
+const user = {
+  name: document.getElementById("name").value,
+  age: parseInt(document.getElementById("age").value),
+  height: parseFloat(document.getElementById("height").value),
+  weight: parseFloat(document.getElementById("weight").value),
+  gender: document.getElementById("gender").value,
+  activityLevel: "Moderate", 
+  goal: document.getElementById("goal").value
+};
 
     try {
       const response = await fetch("http://localhost:8080/addUser", {
@@ -26,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         alert("User added successfully!");
-        window.location.href = "recommendation.html"; // go to next page
+        window.location.href = "recommendation.html"; 
       } else {
         alert("Error: " + (result.error || "Unable to add user."));
       }

@@ -11,7 +11,7 @@ public class Server {
     public static void main(String[] args) {
         port(getAssignedPort());
         staticFiles.location("/public");
-        enableCORS();
+        enableCORS("*", "GET,POST,PUT,DELETE,OPTIONS", "Content-Type,Authorization,X-Requested-With");
         UserDAO userDAO = new UserDAO();
         Gson gson = new Gson();
         get("/", (req, res) -> {
@@ -64,21 +64,5 @@ public class Server {
         }
         return 8080;
     }
-private static void enableCORS() {
-    // Handle preflight requests (OPTIONS)
-    options("/*", (request, response) -> {
-        response.header("Access-Control-Allow-Origin", "*");
-        response.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-        response.header("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With");
-        response.status(200);
-        return "OK";
-    });
 
-    // Handle actual requests
-    before((request, response) -> {
-        response.header("Access-Control-Allow-Origin", "*");
-        response.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-        response.header("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With");
-    });
-}
 }

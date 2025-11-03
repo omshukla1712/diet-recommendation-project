@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   historyDiv.innerHTML = "<p>Loading user history...</p>";
 
   try {
-    const response = await fetch("http://localhost:8080/users");
+    const response = await fetch("https://your-railway-app-name.up.railway.app/addUser");
     const users = await response.json();
 
     if (response.ok && users.length > 0) {

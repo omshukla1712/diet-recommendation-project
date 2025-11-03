@@ -14,7 +14,7 @@ const user = {
 };
 
     try {
-      const response = await fetch("http://localhost:8080/addUser", {
+      const response = await fetch("https://your-railway-app-name.up.railway.app/addUser", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user)

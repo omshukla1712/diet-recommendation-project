@@ -9,32 +9,20 @@ import java.util.List;
 public class Server {
 
     public static void main(String[] args) {
-        // --- Port: use environment variable PORT if present, otherwise default 8080
         port(getAssignedPort());
-
-        // --- Serve static files from classpath /public
         staticFiles.location("/public");
-
-        // --- Enable CORS for frontend fetch calls
         enableCORS();
-
-        // --- Initialize DAO and Gson
         UserDAO userDAO = new UserDAO();
         Gson gson = new Gson();
-
-        // --- Root redirect to index
         get("/", (req, res) -> {
             res.redirect("/index.html");
             return null;
         });
 
-        // health
         get("/health", (req, res) -> {
             res.type("text/plain");
             return "Diet Recommendation API is running!";
         });
-
-        // POST add user
         post("/addUser", (req, res) -> {
             res.type("application/json");
             try {
@@ -54,7 +42,6 @@ public class Server {
             }
         });
 
-        // GET users
         get("/users", (req, res) -> {
             res.type("application/json");
             try {
@@ -68,7 +55,6 @@ public class Server {
         });
     }
 
-    // Read PORT env var or return 8080
     private static int getAssignedPort() {
         String port = System.getenv("PORT");
         if (port != null) {
@@ -78,8 +64,6 @@ public class Server {
         }
         return 8080;
     }
-
-    // Enable very permissive CORS for development; OK for academic project.
     private static void enableCORS() {
         options("/*", (request, response) -> {
             String acrh = request.headers("Access-Control-Request-Headers");

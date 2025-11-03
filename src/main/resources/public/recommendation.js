@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const listDiv = document.getElementById("recommendationList");
 
   try {
-    const response = await fetch("http://localhost:8080/users");
+    const response = await fetch("https://your-railway-app-name.up.railway.app/addUser");
     const users = await response.json();
 
     if (users.length === 0) {

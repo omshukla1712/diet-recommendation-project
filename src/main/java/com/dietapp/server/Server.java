@@ -11,7 +11,7 @@ public class Server {
     public static void main(String[] args) {
         port(getAssignedPort());
         staticFiles.location("/public");
-        enableCORS("*", "GET,POST,PUT,DELETE,OPTIONS", "Content-Type,Authorization,X-Requested-With");
+        enableCORS();
         UserDAO userDAO = new UserDAO();
         Gson gson = new Gson();
         get("/", (req, res) -> {
@@ -54,7 +54,34 @@ public class Server {
             }
         });
     }
+private static void enableCORS() {
+    options("/*", (request, response) -> {
+        String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+        if (accessControlRequestHeaders != null) {
+            response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+        }
 
+        String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+        if (accessControlRequestMethod != null) {
+            response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+        }
+        response.header("Access-Control-Allow-Origin", "*");
+        response.header("Access-Control-Allow-Credentials", "true");
+        response.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+        response.header("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With");
+
+        response.status(200);
+        return "OK";
+    });
+
+        before((request, response) -> {
+    before((request, response) -> {
+        response.header("Access-Control-Allow-Origin", "*");
+        response.header("Access-Control-Allow-Credentials", "true");
+        response.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+        response.header("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With");
+    });
+    }
     private static int getAssignedPort() {
         String port = System.getenv("PORT");
         if (port != null) {
